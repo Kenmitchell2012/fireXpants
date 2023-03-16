@@ -1,0 +1,19 @@
+div{
+    z-index: 2;
+    position: relative;
+}
+a{
+    text-decoration: none;
+}
+.logo{
+    z-index: -1;
+    position: fixed;
+}
+
+.sm-icon{
+    height:5em;
+}
+
+.md-icon{
+    height:10em;
+}
