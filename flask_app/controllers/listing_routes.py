@@ -6,3 +6,12 @@ from flask_app.models import listing_model, user_model
 def user_dash():
 
     return render_template('view_all.html', all_listings= listing_model.Listing.get_all_listings() )
+
+@app.route('/listings/new')
+def create_form():
+    return render_template('create_form.html')
+
+@app.route('/listings/edit')
+def edit_form():
+    return render_template('edit_form.html')
+
