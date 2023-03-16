@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css') }}">
     <title>Inventory App</title>
 </head>
+
 <body class="d-flex flex-row justify-content-around align-items-center">
-    
-    
+
+
     <div class="d-flex flex-column mt-5">
-        <form  class=" shadow p-3 mb-5 bg-body rounded" action="/user/register" method="POST">
+        <form class=" shadow p-3 mb-5 bg-body rounded" action="/user/register" method="POST">
             <h1>Register</h1>
             <div class="mb-3">
                 <label for="" class="form-label">First Name:</label>
@@ -33,21 +37,21 @@
                 <label for="" class="form-label">Confirm Password:</label>
                 <input type="password" class="form-control" name="conf_password">
             </div>
-            <button type="submit"  class="btn btn-outline-info">Register</button>
+            <button type="submit" class="btn btn-outline-info">Register</button>
         </form>
         <div>
             {% with messages = get_flashed_messages(category_filter=['register'])%}
-        {%if messages%}
-        {% for message in messages %}
-        <p class='form-control is-invalid'>{{message}}</p>
-        {% endfor %}
-        {%endif%}
-        {%endwith%}
+            {%if messages%}
+            {% for message in messages %}
+            <p class='form-control is-invalid'>{{message}}</p>
+            {% endfor %}
+            {%endif%}
+            {%endwith%}
         </div>
     </div>
-
+    <img class="logo" src="{{ url_for('static', filename='img/pantsflame.png') }}" alt="Fire Pants Logo">
     <div class="d-flex flex-column">
-        <form  class="shadow p-3 mb-5 bg-body rounded" action="/user/login" method="POST">
+        <form class="shadow p-3 mb-5 bg-body rounded" action="/user/login" method="POST">
             <h2>Login</h2>
             <div class="mb-3">
                 <label for="" class="form-label">Email:</label>
@@ -60,15 +64,16 @@
             <button type="submit" class="btn btn-outline-info">Login</button>
         </form>
         <div>
-            
-        {% with messages = get_flashed_messages(category_filter=['login'])%}
+
+            {% with messages = get_flashed_messages(category_filter=['login'])%}
             {%if messages%}
-                {% for message in messages %}
-                <p class='form-control is-invalid'>{{message}}</p>
-                {% endfor %}
+            {% for message in messages %}
+            <p class='form-control is-invalid'>{{message}}</p>
+            {% endfor %}
             {%endif%}
-        {%endwith%}
+            {%endwith%}
         </div>
     </div>
 </body>
+
 </html>
