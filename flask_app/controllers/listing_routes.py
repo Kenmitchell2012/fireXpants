@@ -4,8 +4,8 @@ from flask_app.models import listing_model, user_model
 
 @app.route('/dashboard')
 def user_dash():
-
-    return render_template('view_all.html', all_listings= listing_model.Listing.get_all_listings() )
+# all_listings= listing_model.Listing.get_all_listings()
+    return render_template('view_all.html',  )
 
 @app.route('/listings/new')
 def create_form():
