@@ -21,7 +21,7 @@
             </h1>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/users/">My Listings</a>
+                    <a class="nav-link" href="/listings/user">My Listings</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/listings">All Listings</a>
@@ -32,24 +32,33 @@
             </ul>
         </div>
     </nav>
-    <form class="container-sm" action="/listings/create" method="POST">
+    <form class="container-sm" action="/listings/update/{{listing.id}}" method="POST">
         <div class="row">
             <div class="col mb-3">
                 <label class="form-label">Type</label>
-                <input type="text" class="form-control" name="type">
+                <input type="text" class="form-control" name="type" value="{{listing.type}}">
             </div>
             <div class="col mb-3">
                 <label class="form-label">Trend</label>
-                <input type="text" class="form-control" name="trend">
+                <input type="text" class="form-control" name="trend" value="{{listing.trend}}">
             </div>
 
         </div>
         <div class="row mb-3">
             <label class="form-check-label">Description</label>
-            <textarea name="description" cols="30" rows="10"></textarea>
+            <textarea name="description" cols="30" rows="10">{{listing.description}} </textarea>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <div class="container-sm">
+        {% with messages = get_flashed_messages(category_filter=['listing'])%}
+            {%if messages%}
+            {% for message in messages %}
+            <p class='form-control is-invalid'>{{message}}</p>
+            {% endfor %}
+            {%endif%}
+            {%endwith%}
+    </div>
 </body>
 
 </html>

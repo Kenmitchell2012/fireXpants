@@ -84,7 +84,7 @@ class User:
             SELECT * FROM users
             LEFT JOIN listings
             ON users.id = listings.user_id
-            WHERE users.id = %(user_id)s
+            WHERE users.id = %(user_id)s;
         '''
         results= connectToMySQL(cls.my_db).query_db(query, data)
 
@@ -99,14 +99,16 @@ class User:
             listings_data={
                 "id" : row['listings.id'], 
                 "user_id": row['user_id'],
-                "title":row['title'],
-                "content": row['content'],
+                "type":row['type'],
+                "trend": row['trend'],
+                "stoked_val": row['stoked_val'],
+                "description": row["description"],
                 "created_at": row['listings.created_at'],
                 "updated_at": row['listings.updated_at']
             }
 
             # creating a post instance and appending it to the user's all_post attribute-which is an empty list.
-            one_user.all_listings.append(listings_model.Listing(listings_data))
+            one_user.all_listings.append(listing_model.Listing(listings_data))
 
             # return this user to the route in the controller, to be used in the template
         return one_user
@@ -128,7 +130,29 @@ class User:
             return False
 
 
-
+    @classmethod
+    def get_users_listings(cls):
+        query='''
+            SELECT * FROM users
+            JOIN listings
+            ON listings.user_id = users.id
+            WHERE users.id= %(id)s;
+        '''
+        results= connectToMySQL(cls.my_db).query_db(query)
+        one_user = cls(results[0])
+        for row in results:
+            listing_data={
+                'id': row['listings.id'],
+                'user_id':row['user_id'],
+                'type':row['type'],
+                'trend':row['trend'],
+                'description':row['description'],
+                'stoked_val':row['stoked_val'],
+                'created_at':row['created_at'],
+                'updated_at':row['updated_at'],
+            }
+            one_user.all_listings.append(listing_data)
+        return one_user
 
     @staticmethod
     def validate_register(form_data):

@@ -58,8 +58,67 @@ class Listing:
         else:
             return []
 
-
+    @classmethod
+    def get_one_listing_w_user(cls,data):
+        query='''
+            SELECT * FROM listings
+            JOIN users
+            ON listings.user_id = users.id
+            WHERE listings.id= %(id)s;
+        '''
+        results= connectToMySQL(cls.my_db).query_db(query,data)
+        one_listing = cls(results[0])
+        for row in results:
+            user_data={
+                    'id': row['users.id'],
+                    'first_name': row['first_name'],
+                    'last_name': row['last_name'],
+                    'email': row['email'],
+                    'password': ' ',
+                    'created_at': row['users.created_at'],
+                    'updated_at': row['users.updated_at']
+                }
+            one_listing.creator= user_model.User(user_data)
+        return one_listing
 
     #update
+    @classmethod
+    def update_listing(cls,data):
+        query='''
+            UPDATE listings SET type=%(type)s, trend=%(trend)s, description= %(description)s) WHERE listings.id = %(id)s;
+        '''
+        results= connectToMySQL(cls.my_db).query_db(query, data)
+        return results
+
 
     #delete
+    @classmethod
+    def delete_listing(cls,data):
+        query='''
+            DELETE FROM listings WHERE listings.id = %(id)s;
+        '''
+        results= connectToMySQL(cls.my_db).query_db(query, data)
+        return results
+    
+    @classmethod
+    def update_stoked_val(cls, data):
+        query='''
+        UPDATE listings SET stoked_val=%(stoked_val)s
+        WHERE listings.id = %(id)s;
+        '''
+        results= connectToMySQL(cls.my_db).query_db(query, data)
+        return results
+    
+    @staticmethod
+    def validate_listing(data):
+        is_valid= True
+        if len(data['type']) < 3:
+            flash("Type must be atleast 3 characters", 'listing')
+            is_valid=False
+        if len(data['trend']) < 3:
+            flash("Trend must be atleast 3 characters",'listing')
+            is_valid=False
+        if len(data['description']) < 5:
+            flash("Description must be atleast 5 characters",'listing')
+            is_valid=False
+        return is_valid

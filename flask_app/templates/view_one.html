@@ -21,7 +21,7 @@
             </h1>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/users/">My Listings</a>
+                    <a class="nav-link" href="/listings/user/{{user.id}}">My Listings</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/listings">All Listings</a>
@@ -32,34 +32,35 @@
             </ul>
         </div>
     </nav>
-    <div class="d-flex flex-row justify-content-center align-content-center">
+    <div class="d-flex flex-column justify-content-around align-items-center">
         <div class="card" style="width: 18rem;">
             <!-- <img src="..." class="card-img-top" alt="..."> -->
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                    content.</p>
+                <h5 class="card-title">{{listing.type}}</h5>
+                <p>listed by {{listing.creator.f_name}}</p>
+                <p>trend: {{listing.trend}}</p>
+                <p class="card-text">{{listing.description}}</p>
 
             </div>
-            <div class="container">
-                <div class="row text-align-center">
-
-                    <a class="col text-align-center" href="/cool_it">
-                        <img class="sm-icon row" src="{{ url_for('static', filename='img/extinguisher.png') }}" alt="extinguisher">
-                        <p class="row text-dark">cool it!</p>
-        
-                    </a>
-                    <div class="col">
-                        <img class="md-icon row" src="{{ url_for('static', filename='img/pants.png') }}" alt="pants">
-                        <p class="row"></p>
-                    </div>
-                    <a class="col text-align-center" href="/stoke_it">
-                        <img class="row sm-icon" src="{{ url_for('static', filename='img/match.png') }}" alt="match">
-                        <p class="row text-dark">stoke it!</p>
-                    </a>
-                </div>
-            </div>
+            
         </div>
+        <div class="d-flex flex-row justify-content-center align-items-center">
+
+            <a class="d-flex flex-column justify-content-center align-items-center buttonlink" href="/listings/cool_it/{{listing.id}}">
+                <img class="sm-icon flex-row" src="{{ url_for('static', filename='img/extinguisher.png') }}" alt="extinguisher">
+                <p class="flex-row text-dark">cool it!</p>
+
+            </a>
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <img class="md-icon flex-row" src="{{ url_for('static', filename='img/pants.png') }}" alt="pants">
+                <h2 class="flex-row text-danger">{{listing.stoked_val}}</h2>
+            </div>
+            <a class="d-flex flex-column justify-content-center align-items-center buttonlink" href="/listings/stoke_it/{{listing.id}}">
+                <img class="flex-row sm-icon" src="{{ url_for('static', filename='img/match.png') }}" alt="match">
+                <p class="flex-row text-dark">stoke it!</p>
+            </a>
+        </div>
+
     </div>
 </body>
 

@@ -13,7 +13,7 @@ def register_user():
     new_user= user_model.User.save_user(request.form)
     print(new_user)
     session['user_id'] = new_user
-    return redirect('/dashboard')
+    return redirect('/listings')
 
 @app.route('/user/login', methods=['POST'])
 def login_user():
@@ -24,13 +24,14 @@ def login_user():
     }
     returning_user= user_model.User.get_user_by_email(email_data)
     session['user_id']= returning_user.id
-    return redirect('/dashboard')
+    return redirect('/listings')
 
 
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect('/')
+
 
 
 
