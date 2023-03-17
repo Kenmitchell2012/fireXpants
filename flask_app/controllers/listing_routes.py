@@ -4,6 +4,8 @@ from flask_app.models import listing_model, user_model
 
 @app.route('/listings')
 def user_dash():
+    if 'user_id' not in session: 
+        return redirect('/')
     id_data={
         'id': session['user_id']
     }
@@ -13,6 +15,8 @@ def user_dash():
 
 @app.route('/listings/new')
 def create_form():
+    if 'user_id' not in session: 
+        return redirect('/')
     id_data={
         'id': session['user_id']
     }
@@ -21,6 +25,8 @@ def create_form():
 
 @app.route('/listings/edit/<int:id>')
 def edit_form(id):
+    if 'user_id' not in session: 
+        return redirect('/')
     id_data={
         'id': id
     }
@@ -29,6 +35,8 @@ def edit_form(id):
 
 @app.route('/listings/user/<int:id>')
 def view_user_listings(id):
+    if 'user_id' not in session: 
+        return redirect('/')
     id_data={
         'user_id': id
     }
@@ -38,6 +46,8 @@ def view_user_listings(id):
 #view one
 @app.route('/listings/<int:id>')
 def view_one(id):
+    if 'user_id' not in session: 
+        return redirect('/')
     id_data={
         'id': id
     }
@@ -51,6 +61,8 @@ def view_one(id):
 #create/POST w/ validation
 @app.route('/listings/create', methods=['POST'])
 def create_listing():
+    if 'user_id' not in session: 
+        return redirect('/')
     if not listing_model.Listing.validate_listing(request.form):
         return redirect('/listings/new')
     listing_data={
@@ -73,6 +85,8 @@ def create_listing():
 #update/POST w/ validation
 @app.route('/listings/update/<int:id>', methods=['POST'])
 def update_listing(id):
+    if 'user_id' not in session: 
+        return redirect('/')
     id_data={
         'id': id
     }
@@ -88,6 +102,8 @@ def update_listing(id):
 #delete
 @app.route('/listings/delete/<int:id>')
 def delete_listing(id):
+    if 'user_id' not in session: 
+        return redirect('/')
     id_data={
         'id': id
     }
@@ -97,6 +113,8 @@ def delete_listing(id):
 #coolit/deduct 1 from stoke_val
 @app.route('/listings/cool_it/<int:id>')
 def cool_it(id):
+    if 'user_id' not in session: 
+        return redirect('/')
     id_data={
         'id': id
     }
@@ -114,6 +132,8 @@ def cool_it(id):
 #stokeit/add 1 to stoke_val
 @app.route('/listings/stoke_it/<int:id>')
 def stoke_it(id):
+    if 'user_id' not in session: 
+        return redirect('/')
     id_data={
         'id': id
     }
